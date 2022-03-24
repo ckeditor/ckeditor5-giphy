@@ -9,36 +9,23 @@
 
 import {
 	View,
-	ButtonView,
-	FormHeaderView,
 	LabeledFieldView,
 
-	Model,
 	FocusCycler,
 	createLabeledInputText,
 	ViewCollection,
-	injectCssTransitionDisabler,
-
-	createDropdown,
-	addListToDropdown
+	injectCssTransitionDisabler
 } from 'ckeditor5/src/ui';
 
 import {
 	FocusTracker,
 	KeystrokeHandler,
-	Collection,
-	Rect,
-	isVisible
 } from 'ckeditor5/src/utils';
 
 // See: #8833.
 // eslint-disable-next-line ckeditor5-rules/ckeditor-imports
 import '@ckeditor/ckeditor5-ui/theme/components/responsive-form/responsiveform.css';
 import '../theme/giphyformview.css';
-
-// eslint-disable-next-line ckeditor5-rules/ckeditor-imports
-import previousArrow from '@ckeditor/ckeditor5-ui/theme/icons/previous-arrow.svg';
-import { icons } from 'ckeditor5/src/core';
 
 /**
  * The find and replace form view class.
@@ -82,6 +69,7 @@ export default class GiphyFormView extends View {
 		 * @member {module:ui/labeledfield/labeledfieldview~LabeledFieldView}
 		 */
 		this.filterInputView = this._createFilterInput();
+
 		/**
 		 * A collection of child views in the form.
 		 *
