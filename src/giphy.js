@@ -6,6 +6,13 @@ export default class Giphy extends Plugin {
 	/**
 	 * @inheritDoc
 	 */
+	static get pluginName() {
+		return 'Giphy';
+	}
+	
+	/**
+	 * @inheritDoc
+	 */
 	static get requires() {
 		return [ GiphyUI, GiphyEditing ];
 	}

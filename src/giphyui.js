@@ -1,11 +1,16 @@
 import { Plugin } from 'ckeditor5/src/core';
 import { ButtonView } from 'ckeditor5/src/ui';
 
+import GiphyIntegration from './giphyintegration';
 import giphyIcon from '../theme/icons/giphy.svg';
 
 export default class GiphyUI extends Plugin {
 	static get pluginName() {
 		return 'GiphyUI';
+	}
+
+	static get requires() {
+		return [GiphyIntegration];
 	}
 
 	init() {
@@ -25,17 +30,17 @@ export default class GiphyUI extends Plugin {
 			} );
 
 			// Insert a text into the editor after clicking the button.
-			this.listenTo( view, 'execute', () => {
-				model.change( writer => {
-					const textNode = writer.createText( 'Hello CKEditor 5!' );
-
-					model.insertContent( textNode );
-				} );
-
+			this.listenTo( view, 'execute', async () => {
+				const gifs = await editor.plugins.get('GiphyIntegration').getGifs().then(response => this._handleResponse(response));
+				console.log('gifs', gifs);
 				editor.editing.view.focus();
 			} );
 
 			return view;
 		} );
+	}
+
+	_handleResponse(data) {
+		return data;
 	}
 }

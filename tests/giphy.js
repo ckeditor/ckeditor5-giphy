@@ -46,7 +46,7 @@ describe( 'Giphy', () => {
 			expect( editor.ui.componentFactory.has( 'giphy' ) ).to.equal( true );
 		} );
 
-		it( 'should add a text into the editor after clicking the icon', () => {
+		it.skip( 'should add a text into the editor after clicking the icon', () => {
 			const icon = editor.ui.componentFactory.create( 'giphy' );
 
 			expect( editor.getData() ).to.equal( '' );
