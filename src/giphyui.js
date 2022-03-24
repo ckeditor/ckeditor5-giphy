@@ -1,5 +1,6 @@
 import { Plugin } from 'ckeditor5/src/core';
 import { createDropdown } from 'ckeditor5/src/ui';
+import { Collection } from 'ckeditor5/src/utils';
 
 import GiphyIntegration from './giphyintegration';
 import giphyIcon from '../theme/icons/giphy.svg';
@@ -17,6 +18,7 @@ export default class GiphyUI extends Plugin {
 	init() {
 		const editor = this.editor;
 		const t = editor.t;
+		const gifsCollection = new Collection();
 
 		// Add the "giphy" button to feature components.
 		editor.ui.componentFactory.add( 'giphy', locale => {
@@ -32,10 +34,14 @@ export default class GiphyUI extends Plugin {
 			} );
 
 			dropdownView.on( 'change:isOpen', async () => {
-				const gifs = await editor.plugins.get( 'GiphyIntegration' ).getGifs()
+				const gifs = await editor.plugins.get( 'GiphyIntegration' ).getGifs( 'ryan gosling' )
 					.then( response => this._handleResponse( response ) );
 
-				console.log( 'gifs', gifs );
+				gifsCollection.clear();
+				gifs.forEach( gif => gifsCollection.add( gif ) );
+
+				console.log( gifsCollection );
+
 				editor.editing.view.focus();
 			} );
 
@@ -43,7 +49,7 @@ export default class GiphyUI extends Plugin {
 		} );
 	}
 
-	_handleResponse(data) {
+	_handleResponse( data ) {
 		return data;
 	}
 }
