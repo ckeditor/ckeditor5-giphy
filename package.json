@@ -50,7 +50,9 @@
     "@ckeditor/ckeditor5-upload": ">=33.0.0",
     "eslint": "^7.32.0",
     "eslint-config-ckeditor5": ">=4.0.0",
+    "husky": "^4.2.5",
     "http-server": "^13.0.2",
+    "lint-staged": "^10.2.6",
     "stylelint": "^13.13.1",
     "stylelint-config-ckeditor5": ">=4.0.0"
   },
@@ -63,5 +65,18 @@
     "test": "ckeditor5-package-tools test",
     "prepare": "yarn run dll:build",
     "prepublishOnly": "yarn run dll:build"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --quiet"
+    ],
+    "**/*.css": [
+      "stylelint --quiet --allow-empty-input"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
