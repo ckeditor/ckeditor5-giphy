@@ -5,20 +5,18 @@ import GiphyIntegration from './giphyintegration';
 import giphyIcon from '../theme/icons/giphy.svg';
 import GiphyFormView from './giphyformview';
 
-
 export default class GiphyUI extends Plugin {
 	static get pluginName() {
 		return 'GiphyUI';
 	}
 
 	static get requires() {
-		return [GiphyIntegration];
+		return [ GiphyIntegration ];
 	}
 
 	init() {
 		const editor = this.editor;
 		const t = editor.t;
-		const model = editor.model;
 
 		// Add the "giphy" button to feature components.
 		editor.ui.componentFactory.add( 'giphy', locale => {
