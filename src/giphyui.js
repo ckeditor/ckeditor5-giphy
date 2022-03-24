@@ -25,8 +25,7 @@ export default class GiphyUI extends Plugin {
 			view.set( {
 				label: t( 'Giphy' ),
 				icon: giphyIcon,
-				tooltip: true,
-				isToggleable: true
+				tooltip: true
 			} );
 
 			// Insert a text into the editor after clicking the button.
