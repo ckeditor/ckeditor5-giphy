@@ -1,8 +1,10 @@
 import { Plugin } from 'ckeditor5/src/core';
-import { ButtonView } from 'ckeditor5/src/ui';
+import { createDropdown } from 'ckeditor5/src/ui';
 
 import GiphyIntegration from './giphyintegration';
 import giphyIcon from '../theme/icons/giphy.svg';
+import GiphyFormView from './giphyformview';
+
 
 export default class GiphyUI extends Plugin {
 	static get pluginName() {
@@ -20,22 +22,26 @@ export default class GiphyUI extends Plugin {
 
 		// Add the "giphy" button to feature components.
 		editor.ui.componentFactory.add( 'giphy', locale => {
-			const view = new ButtonView( locale );
+			const dropdownView = createDropdown( locale );
+			const formView = this.formView = new GiphyFormView( locale );
 
-			view.set( {
+			dropdownView.panelView.children.add( formView );
+
+			dropdownView.buttonView.set( {
 				label: t( 'Giphy' ),
 				icon: giphyIcon,
 				tooltip: true
 			} );
 
-			// Insert a text into the editor after clicking the button.
-			this.listenTo( view, 'execute', async () => {
-				const gifs = await editor.plugins.get('GiphyIntegration').getGifs().then(response => this._handleResponse(response));
-				console.log('gifs', gifs);
+			dropdownView.on( 'change:isOpen', async () => {
+				const gifs = await editor.plugins.get( 'GiphyIntegration' ).getGifs()
+					.then( response => this._handleResponse( response ) );
+
+				console.log( 'gifs', gifs );
 				editor.editing.view.focus();
 			} );
 
-			return view;
+			return dropdownView;
 		} );
 	}
 
