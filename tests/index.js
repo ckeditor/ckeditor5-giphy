@@ -1,7 +1,7 @@
 import { Giphy as GiphyDll, icons } from '../src';
 import Giphy from '../src/giphy';
 
-import ckeditor from './../theme/icons/ckeditor.svg';
+import giphy from './../theme/icons/giphy.svg';
 
 describe( 'CKEditor5 Giphy DLL', () => {
 	it( 'exports Giphy', () => {
@@ -9,8 +9,8 @@ describe( 'CKEditor5 Giphy DLL', () => {
 	} );
 
 	describe( 'icons', () => {
-		it( 'exports the "ckeditor" icon', () => {
-			expect( icons.ckeditor ).to.equal( ckeditor );
+		it( 'exports the "giphy" icon', () => {
+			expect( icons.giphy ).to.equal( giphy );
 		} );
 	} );
 } );

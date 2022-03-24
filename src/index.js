@@ -1,7 +1,7 @@
-import ckeditor from '../theme/icons/ckeditor.svg';
+import giphy from '../theme/icons/giphy.svg';
 
 export { default as Giphy } from './giphy';
 
 export const icons = {
-	ckeditor
+	giphy
 };

@@ -26,7 +26,7 @@ describe( 'Giphy', () => {
 					Giphy
 				],
 				toolbar: [
-					'myButton'
+					'giphy'
 				]
 			} );
 		} );
@@ -43,11 +43,11 @@ describe( 'Giphy', () => {
 		} );
 
 		it( 'should add an icon to the toolbar', () => {
-			expect( editor.ui.componentFactory.has( 'myButton' ) ).to.equal( true );
+			expect( editor.ui.componentFactory.has( 'giphy' ) ).to.equal( true );
 		} );
 
 		it( 'should add a text into the editor after clicking the icon', () => {
-			const icon = editor.ui.componentFactory.create( 'myButton' );
+			const icon = editor.ui.componentFactory.create( 'giphy' );
 
 			expect( editor.getData() ).to.equal( '' );
 

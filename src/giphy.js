@@ -1,7 +1,7 @@
 import { Plugin } from 'ckeditor5/src/core';
 import { ButtonView } from 'ckeditor5/src/ui';
 
-import ckeditor5Icon from '../theme/icons/ckeditor.svg';
+import giphyIcon from '../theme/icons/giphy.svg';
 
 export default class Giphy extends Plugin {
 	static get pluginName() {
@@ -19,7 +19,7 @@ export default class Giphy extends Plugin {
 
 			view.set( {
 				label: t( 'Giphy' ),
-				icon: ckeditor5Icon,
+				icon: giphyIcon,
 				tooltip: true,
 				isToggleable: true
 			} );
