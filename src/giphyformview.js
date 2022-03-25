@@ -45,8 +45,6 @@ export default class GiphyFormView extends View {
 	constructor( locale ) {
 		super( locale );
 
-		const t = locale.t;
-
 		/**
 		 * Tracks information about DOM focus in the form.
 		 *
@@ -108,7 +106,7 @@ export default class GiphyFormView extends View {
 		} );
 
 		this.setTemplate( {
-			tag: 'form',
+			tag: 'div',
 
 			attributes: {
 				class: [ 'ck', 'ck-giphy-form', 'ck-responsive-form' ],
