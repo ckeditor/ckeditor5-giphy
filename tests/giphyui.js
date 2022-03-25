@@ -5,7 +5,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 import Giphy from '../src/giphy';
 import GiphyUI from '../src/giphyui';
 
-/* global document */
+import GiphyFormView from '../src/giphyformview';
+
+/* global document, Event */
 
 describe( 'GiphyUI', () => {
 	it( 'should be named', () => {
@@ -47,6 +49,38 @@ describe( 'GiphyUI', () => {
 			expect( button ).to.have.property( 'label', 'Insert Giphy' );
 			expect( button ).to.have.property( 'icon' );
 			expect( button ).to.have.property( 'tooltip', true );
+		} );
+	} );
+
+	describe( 'input text', () => {
+		let view;
+
+		const clock = sinon.useFakeTimers();
+
+		beforeEach( () => {
+			view = new GiphyFormView( { t: val => val } );
+			view.render();
+			document.body.appendChild( view.element );
+		} );
+
+		afterEach( () => {
+			view.element.remove();
+			view.destroy();
+		} );
+
+		after( () => {
+			clock.restore();
+		} );
+
+		it( 'changes #searchText property', () => {
+			const domInput = view.element.querySelector( 'input[type=text]' );
+
+			domInput.value = 'new value';
+			domInput.dispatchEvent( new Event( 'input' ) );
+
+			clock.tick( 1000 );
+
+			expect( view.searchText ).to.equal( 'new value' );
 		} );
 	} );
 } );

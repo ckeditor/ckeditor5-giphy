@@ -19,8 +19,10 @@ import {
 
 import {
 	FocusTracker,
-	KeystrokeHandler,
+	KeystrokeHandler
 } from 'ckeditor5/src/utils';
+
+import { debounce } from 'lodash-es';
 
 // See: #8833.
 // eslint-disable-next-line ckeditor5-rules/ckeditor-imports
@@ -44,6 +46,13 @@ export default class GiphyFormView extends View {
 	 */
 	constructor( locale ) {
 		super( locale );
+
+		/**
+		 * Value of search/filter text input.
+		 *
+		 * @member {String}
+		 */
+		this.set( 'searchText', '' );
 
 		/**
 		 * Tracks information about DOM focus in the form.
@@ -118,7 +127,7 @@ export default class GiphyFormView extends View {
 			children: this.children
 		} );
 
-		injectCssTransitionDisabler( this );
+		injectCssTransitionDisabler( this ); // @todo: check if this is needed.
 	}
 
 	/**
@@ -128,7 +137,7 @@ export default class GiphyFormView extends View {
 		super.render();
 
 		const childViews = [
-			this.filterInputView,
+			this.filterInputView
 			// @todo: grid view
 		];
 
@@ -172,6 +181,13 @@ export default class GiphyFormView extends View {
 		const labeledInput = new LabeledFieldView( this.locale, createLabeledInputText );
 
 		labeledInput.label = t( 'What you\'re looking for?' );
+
+		// Property change should be debounced to prevent overly frequent content fetches.
+		const debounced = debounce( event => {
+			this.set( 'searchText', event.source.element.value );
+		}, 200 );
+
+		labeledInput.fieldView.on( 'input', debounced );
 
 		return labeledInput;
 	}
