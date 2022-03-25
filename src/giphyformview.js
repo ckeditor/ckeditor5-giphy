@@ -193,18 +193,3 @@ export default class GiphyFormView extends View {
 		return children;
 	}
 }
-
-// @todo: verify events
-
-/**
- * Fired when the form view is submitted (when one of the children triggered the submit event),
- * for example with a click on {@link #saveButtonView}.
- *
- * @event submit
- */
-
-/**
- * Fired when the form view is canceled, for example with a click on {@link #cancelButtonView}.
- *
- * @event cancel
- */
