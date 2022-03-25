@@ -27,9 +27,13 @@ export default class GiphyUI extends Plugin {
 			const dropdownView = createDropdown( locale );
 			const formView = this.formView = new GiphyFormView( locale );
 
+			dropdownView.set( 'loading', false );
+
 			formView.on( 'change:searchText', ( event, propertyName, newValue ) => {
 				// @todo: here we could change the tiles.
 				console.log( newValue );
+
+				this._requestResults( newValue, dropdownView, gifsCollection );
 			} );
 
 			dropdownView.panelView.children.add( formView );
@@ -41,13 +45,7 @@ export default class GiphyUI extends Plugin {
 			} );
 
 			dropdownView.on( 'change:isOpen', async ( event, propertyName, isOpenValue ) => {
-				const gifs = await editor.plugins.get( 'GiphyIntegration' ).getGifs( 'ryan gosling' )
-					.then( response => this._handleResponse( response ) );
-
-				gifsCollection.clear();
-				gifs.forEach( gif => gifsCollection.add( gif ) );
-
-				console.log( gifsCollection );
+				this._requestResults( 'ryan gosling', dropdownView, gifsCollection );
 
 				if ( isOpenValue ) {
 					formView.focus();
@@ -59,6 +57,22 @@ export default class GiphyUI extends Plugin {
 
 			return dropdownView;
 		} );
+	}
+
+	async _requestResults( searchText, dropdownView, gifsCollection ) {
+		dropdownView.loading = true;
+
+		const giphyIntegration = this.editor.plugins.get( 'GiphyIntegration' );
+		const gifs = await giphyIntegration
+			.getGifs( searchText )
+			.then( response => this._handleResponse( response ) );
+
+		dropdownView.loading = false;
+
+		gifsCollection.clear();
+		gifs.forEach( gif => gifsCollection.add( gif ) );
+
+		console.log( Array.from( gifsCollection ) );
 	}
 
 	_handleResponse( data ) {
