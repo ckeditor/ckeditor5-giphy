@@ -196,7 +196,6 @@ export default class GiphyFormView extends View {
 	 * Populates the {@link #children} collection of the form.
 	 *
 	 * @private
-	 * @param {module:utils/collection~Collection} manualDecorators A reference to
 	 * @returns {module:ui/viewcollection~ViewCollection} The children of link form view.
 	 */
 	_createFormChildren() {

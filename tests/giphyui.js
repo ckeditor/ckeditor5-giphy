@@ -82,5 +82,29 @@ describe( 'GiphyUI', () => {
 
 			expect( view.searchText ).to.equal( 'new value' );
 		} );
+
+		it( 'debounces the initial change', () => {
+			const domInput = view.element.querySelector( 'input[type=text]' );
+
+			domInput.value = 'foobar';
+			domInput.dispatchEvent( new Event( 'input' ) );
+
+			expect( view.searchText ).to.equal( '' );
+		} );
+
+		it( 'changes are debounced', () => {
+			const domInput = view.element.querySelector( 'input[type=text]' );
+
+			domInput.value = '1';
+			domInput.dispatchEvent( new Event( 'input' ) );
+
+			expect( view.searchText, 'first check' ).to.equal( '' );
+			domInput.value = '2';
+			domInput.dispatchEvent( new Event( 'input' ) );
+
+			clock.tick( 200 );
+
+			expect( view.searchText, 'second check' ).to.equal( '2' );
+		} );
 	} );
 } );
