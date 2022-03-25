@@ -1,5 +1,7 @@
 import { Plugin } from 'ckeditor5/src/core';
 
+import AddGiphyCommand from './addgiphycommand';
+
 export default class GiphyEditing extends Plugin {
 	/**
 	 * @inheritDoc
@@ -11,5 +13,7 @@ export default class GiphyEditing extends Plugin {
 	/**
 	 * @inheritDoc
 	 */
-	init() {}
+	init() {
+		this.editor.commands.add( 'addGiphy', new AddGiphyCommand( this.editor) );
+	}
 }
