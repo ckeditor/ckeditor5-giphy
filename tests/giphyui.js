@@ -128,7 +128,7 @@ describe( 'GiphyUI', function() {
 		} );
 
 		beforeEach( () => {
-			view = new GiphyFormView( { t: val => val } );
+			view = new GiphyFormView( new Collection(), { t: val => val } );
 			view.render();
 			document.body.appendChild( view.element );
 		} );
