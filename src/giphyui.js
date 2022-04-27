@@ -26,7 +26,7 @@ export default class GiphyUI extends Plugin {
 		// Add the "giphy" button to feature components.
 		editor.ui.componentFactory.add( 'giphy', locale => {
 			const dropdownView = createDropdown( locale );
-			const formView = this.formView = new GiphyFormView( locale );
+			const formView = this.formView = new GiphyFormView( gifsCollection, locale );
 
 			const bind = dropdownView.bindTemplate;
 

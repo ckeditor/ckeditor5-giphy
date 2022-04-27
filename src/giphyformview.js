@@ -22,7 +22,7 @@ import {
 	KeystrokeHandler
 } from 'ckeditor5/src/utils';
 
-import GridView from './giphygrid/gridview';
+import GiphyGridView from './giphygrid/giphygridview';
 
 import { debounce } from 'lodash-es';
 
@@ -48,7 +48,7 @@ export default class GiphyFormView extends View {
 	 *
 	 * @param {module:utils/locale~Locale} [locale] The localization services instance.
 	 */
-	constructor( locale ) {
+	constructor( giphyCollection, locale ) {
 		super( locale );
 
 		/**
@@ -80,6 +80,8 @@ export default class GiphyFormView extends View {
 		 * @member {module:ui/labeledfield/labeledfieldview~LabeledFieldView}
 		 */
 		this.filterInputView = this._createFilterInput();
+
+		this.grid = this._createGrid();
 
 		/**
 		 * A collection of child views in the form.
@@ -117,6 +119,8 @@ export default class GiphyFormView extends View {
 				focusNext: 'tab'
 			}
 		} );
+
+		this.grid.observeGiphyCollection( giphyCollection );
 
 		this.setTemplate( {
 			tag: 'div',
@@ -197,7 +201,7 @@ export default class GiphyFormView extends View {
 	}
 
 	_createGrid() {
-		const grid = new GridView( this.locale, {
+		const grid = new GiphyGridView( this.locale, {
 			colorDefinitions: [],
 			columns: GRID_COLUMNS_COUNT
 		} );
@@ -239,7 +243,7 @@ export default class GiphyFormView extends View {
 
 		children.add( loaderView );
 
-		children.add( this._createGrid() );
+		children.add( this.grid );
 
 		return children;
 	}
