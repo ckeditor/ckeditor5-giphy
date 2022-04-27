@@ -69,7 +69,7 @@ export default class GiphyUI extends Plugin {
 			.then( response => this._handleResponse( response ) )
 			.catch( error => {
 				window.alert( 'Something went wrong with your request.' );
-				console.log( error );
+				console.error( error );
 			} );
 
 		dropdownView.loading = false;

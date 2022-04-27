@@ -7,14 +7,16 @@ import GiphyUI from '../src/giphyui';
 
 import GiphyFormView from '../src/giphyformview';
 
-/* global document, Event */
+/* global document, Event, window */
 
-describe( 'GiphyUI', () => {
+describe( 'GiphyUI', function() {
+	this.timeout( 0 );
+
 	it( 'should be named', () => {
 		expect( GiphyUI.pluginName ).to.equal( 'GiphyUI' );
 	} );
 
-	describe( 'init()', () => {
+	describe( 'integration', () => {
 		let domElement, editor;
 
 		beforeEach( async () => {
@@ -39,23 +41,68 @@ describe( 'GiphyUI', () => {
 			return editor.destroy();
 		} );
 
-		it( 'should register the UI item', () => {
-			expect( editor.ui.componentFactory.has( 'giphy' ) ).to.equal( true );
+		describe( 'init()', () => {
+			it( 'should register the UI item', () => {
+				expect( editor.ui.componentFactory.has( 'giphy' ) ).to.equal( true );
+			} );
+
+			it( 'has the base properties', () => {
+				const button = editor.ui.componentFactory.create( 'giphy' ).buttonView;
+
+				expect( button ).to.have.property( 'label', 'Giphy' );
+				expect( button ).to.have.property( 'icon' );
+				expect( button ).to.have.property( 'tooltip', true );
+			} );
 		} );
 
-		it( 'has the base properties', () => {
-			const button = editor.ui.componentFactory.create( 'giphy' ).buttonView;
+		describe( 'error handling', () => {
+			let dropdown;
 
-			expect( button ).to.have.property( 'label', 'Giphy' );
-			expect( button ).to.have.property( 'icon' );
-			expect( button ).to.have.property( 'tooltip', true );
+			beforeEach( () => {
+				sinon.stub( editor.plugins.get( 'GiphyIntegration' ), 'getGifs' ).callsFake(
+					async () => {
+						throw 'Error';
+					}
+				);
+				sinon.stub( window, 'alert' );
+				sinon.stub( window.console, 'error' );
+
+				dropdown = editor.ui.componentFactory.create( 'giphy' );
+				dropdown.render();
+
+				window.document.body.appendChild( dropdown.element );
+			} );
+
+			afterEach( () => {
+				editor.plugins.get( 'GiphyIntegration' ).getGifs.restore();
+				window.alert.restore();
+				window.console.error.restore();
+			} );
+
+			it( 'shows a generic error when something went wrong with the request', async () => {
+				dropdown.isOpen = true;
+
+				await wait( 0 );
+
+				expect( window.alert ).to.be.calledOnce;
+				expect( window.alert ).to.be.calledWith( 'Something went wrong with your request.' );
+				expect( window.console.error ).to.be.calledOnce;
+			} );
+
+			function wait( time ) {
+				return new Promise( res => {
+					window.setTimeout( res, time );
+				} );
+			}
 		} );
 	} );
 
 	describe( 'input text', () => {
-		let view;
+		let view, clock;
 
-		const clock = sinon.useFakeTimers();
+		before( () => {
+			clock = sinon.useFakeTimers();
+		} );
 
 		beforeEach( () => {
 			view = new GiphyFormView( { t: val => val } );
