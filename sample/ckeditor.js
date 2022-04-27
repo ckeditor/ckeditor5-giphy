@@ -14,6 +14,10 @@ import Clipboard from '@ckeditor/ckeditor5-clipboard/src/clipboard';
 import Link from '@ckeditor/ckeditor5-link/src/link';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
+import Image from '@ckeditor/ckeditor5-image/src/image';
+import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
+import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
+import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
 import CKEditorInspector from '@ckeditor/ckeditor5-inspector';
 
 import Giphy from '../src/giphy';
@@ -29,9 +33,24 @@ ClassicEditor
 			Link,
 			Bold,
 			Italic,
+			Image,
+			ImageToolbar,
+			ImageCaption,
+			ImageStyle,
 			Giphy
 		],
-		toolbar: [ 'bold', 'italic', 'link', 'undo', 'redo', 'giphy' ]
+		toolbar: [ 'bold', 'italic', 'link', 'undo', 'redo', 'giphy', 'image' ],
+		image: {
+			toolbar: [
+				'imageStyle:block',
+				'imageStyle:side',
+				'|',
+				'toggleImageCaption',
+				'imageTextAlternative',
+				'|',
+				'linkImage'
+			]
+		}
 	} )
 	.then( editor => {
 		window.editor = editor;
