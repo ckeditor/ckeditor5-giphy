@@ -37,6 +37,10 @@ export default class GiphyGridView extends GridView {
 	_addGiphy( giphyItem ) {
 		const newView = new TileView( giphyItem, this.locale );
 
+		newView.on( 'execute', () => {
+			this.fire( 'execute', giphyItem );
+		} );
+
 		this.items.add( newView );
 	}
 }

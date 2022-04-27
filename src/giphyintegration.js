@@ -25,9 +25,10 @@ export default class GiphyIntegration extends Plugin {
 		data.data.forEach( element => {
 			const gif = {
 				title: element.title,
-				url: element.url,
+				giphyUrl: element.url,
 				previewUrl: element.images.preview_gif.url,
-				tags: element.tags
+				tags: element.tags,
+				url: element.images.original.url
 			};
 
 			gifs.push( gif );

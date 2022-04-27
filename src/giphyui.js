@@ -48,6 +48,10 @@ export default class GiphyUI extends Plugin {
 				this._requestResults( newValue, dropdownView, gifsCollection );
 			} );
 
+			formView.grid.on( 'execute', ( eventData, giphy ) => {
+				editor.execute( 'addGiphy', giphy );
+			} );
+
 			dropdownView.panelView.children.add( formView );
 
 			dropdownView.buttonView.set( {
