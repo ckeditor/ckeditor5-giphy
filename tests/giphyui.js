@@ -7,6 +7,8 @@ import GiphyUI from '../src/giphyui';
 
 import GiphyFormView from '../src/giphyformview';
 
+import { Collection } from 'ckeditor5/src/utils';
+
 /* global document, Event, window */
 
 describe( 'GiphyUI', function() {
@@ -52,6 +54,27 @@ describe( 'GiphyUI', function() {
 				expect( button ).to.have.property( 'label', 'Giphy' );
 				expect( button ).to.have.property( 'icon' );
 				expect( button ).to.have.property( 'tooltip', true );
+			} );
+		} );
+
+		describe( '_requestResults()', () => {
+			beforeEach( () => {
+				sinon.stub( editor.plugins.get( 'GiphyIntegration' ), 'getGifs' ).callsFake(
+					async () => {
+						throw 'Error';
+					}
+				);
+			} );
+
+			afterEach( () => {
+				editor.plugins.get( 'GiphyIntegration' ).getGifs.restore();
+			} );
+
+			it( 'doesn\'t crash when promise throws an exception', async () => {
+				const giphyUI = editor.plugins.get( 'GiphyUI' );
+				const giphyCollection = new Collection();
+
+				await giphyUI._requestResults( 'foo bar', {}, giphyCollection );
 			} );
 		} );
 

@@ -46,9 +46,9 @@ export default class GiphyUI extends Plugin {
 			} );
 
 			dropdownView.on( 'change:isOpen', async ( event, propertyName, isOpenValue ) => {
-				this._requestResults( 'ryan gosling', dropdownView, gifsCollection );
-
 				if ( isOpenValue ) {
+					this._requestResults( 'ryan gosling', dropdownView, gifsCollection );
+
 					formView.focus();
 				} else {
 					// Move focus back to the editable. We might consider to dropping this at some point.
@@ -75,7 +75,9 @@ export default class GiphyUI extends Plugin {
 		dropdownView.loading = false;
 
 		gifsCollection.clear();
-		gifs.forEach( gif => gifsCollection.add( gif ) );
+		if ( gifs ) {
+			gifs.forEach( gif => gifsCollection.add( gif ) );
+		}
 
 		console.log( Array.from( gifsCollection ) );
 	}
