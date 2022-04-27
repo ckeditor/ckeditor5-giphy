@@ -22,12 +22,16 @@ import {
 	KeystrokeHandler
 } from 'ckeditor5/src/utils';
 
+import GridView from './giphygrid/gridview';
+
 import { debounce } from 'lodash-es';
 
 // See: #8833.
 // eslint-disable-next-line ckeditor5-rules/ckeditor-imports
 import '@ckeditor/ckeditor5-ui/theme/components/responsive-form/responsiveform.css';
 import '../theme/giphyformview.css';
+
+const GRID_COLUMNS_COUNT = 2;
 
 /**
  * The find and replace form view class.
@@ -192,6 +196,15 @@ export default class GiphyFormView extends View {
 		return labeledInput;
 	}
 
+	_createGrid() {
+		const grid = new GridView( this.locale, {
+			colorDefinitions: [],
+			columns: GRID_COLUMNS_COUNT
+		} );
+
+		return grid;
+	}
+
 	/**
 	 * Populates the {@link #children} collection of the form.
 	 *
@@ -225,6 +238,8 @@ export default class GiphyFormView extends View {
 		} );
 
 		children.add( loaderView );
+
+		children.add( this._createGrid() );
 
 		return children;
 	}
