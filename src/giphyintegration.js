@@ -11,8 +11,8 @@ export default class GiphyIntegration extends Plugin {
 		return 'GiphyIntegration';
 	}
 
-	getGifs( data ) {
-		const giphyAPI = `https://api.giphy.com/v1/gifs/search?q=${ encodeURI( data ) }&api_key=${ API_KEY }&limit=5`;
+	getGifs( query ) {
+		const giphyAPI = `https://api.giphy.com/v1/gifs/search?q=${ encodeURI( query ) }&api_key=${ API_KEY }&limit=5`;
 
 		return fetch( giphyAPI )
 			.then( response => { return response.json(); } )
