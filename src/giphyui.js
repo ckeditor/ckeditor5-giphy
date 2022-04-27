@@ -28,7 +28,18 @@ export default class GiphyUI extends Plugin {
 			const dropdownView = createDropdown( locale );
 			const formView = this.formView = new GiphyFormView( locale );
 
+			const bind = dropdownView.bindTemplate;
+
 			dropdownView.set( 'loading', false );
+
+			dropdownView.extendTemplate( {
+				attributes: {
+					class: [
+						bind.if( 'loading', 'ck-giphy-dropdown_loading' ),
+						'ck-giphy-dropdown'
+					]
+				}
+			} );
 
 			formView.on( 'change:searchText', ( event, propertyName, newValue ) => {
 				// @todo: here we could change the tiles.

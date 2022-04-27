@@ -83,7 +83,7 @@ export default class GiphyFormView extends View {
 		 * @readonly
 		 * @type {module:ui/viewcollection~ViewCollection}
 		 */
-		this.children = this._createFormChildren();
+		this.children = this._createChildrenList();
 
 		/**
 		 * A collection of views that can be focused in the form.
@@ -198,12 +198,33 @@ export default class GiphyFormView extends View {
 	 * @private
 	 * @returns {module:ui/viewcollection~ViewCollection} The children of link form view.
 	 */
-	_createFormChildren() {
+	_createChildrenList() {
 		const children = this.createCollection();
 
 		children.add( this.filterInputView );
 
 		// @todo: children.add( this.gridView );
+
+		const loaderView = new View();
+		loaderView.setTemplate( {
+			tag: 'div',
+			attributes: {
+				class: [ 'ck-loader-overlay', 'ck-reset_all-excluded' ]
+			},
+			children: [
+				{
+					tag: 'div',
+					attributes: {
+						class: [ 'ck-giphy-spinner' ]
+					}
+				},
+				{
+					text: 'Fetching your Giphies 🛠…'
+				}
+			]
+		} );
+
+		children.add( loaderView );
 
 		return children;
 	}
