@@ -19,37 +19,18 @@ import {
  * @extends module:ui/button/buttonview~ButtonView
  */
 export default class TileView extends ButtonView {
-	constructor( locale ) {
+	constructor( giphyItem, locale ) {
 		super( locale );
 
-		const bind = this.bindTemplate;
+		this.imageView = this._createImageView( giphyItem.previewUrl );
 
-		/**
-		 * String representing a color shown as tile's background.
-		 *
-		 * @type {String}
-		 */
-		this.set( 'color' );
-
-		/**
-		 * A flag that toggles a special CSS class responsible for displaying
-		 * a border around the button.
-		 *
-		 * @type {Boolean}
-		 */
-		this.set( 'hasBorder' );
-
-		this.imageView = this._createImageView( 'https://avatars.githubusercontent.com/u/5353898?v=4' );
+		this.label = giphyItem.title;
 
 		this.extendTemplate( {
 			attributes: {
-				style: {
-					backgroundColor: bind.to( 'color' )
-				},
 				class: [
 					'ck',
-					'ck-color-grid__tile',
-					bind.if( 'hasBorder', 'ck-color-table__color-tile_bordered' )
+					'ck-grid__tile'
 				]
 			}
 		} );

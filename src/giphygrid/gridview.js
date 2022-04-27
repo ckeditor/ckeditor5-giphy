@@ -103,6 +103,7 @@ export default class GridView extends View {
 		} );
 
 		colorDefinitions.forEach( color => {
+			/** @todo: check me check me check me check me check me */
 			const colorTile = new TileView();
 
 			colorTile.set( {
@@ -129,7 +130,7 @@ export default class GridView extends View {
 			attributes: {
 				class: [
 					'ck',
-					'ck-color-grid'
+					'ck-grid'
 				],
 				style: viewStyleAttribute
 			}

@@ -5,6 +5,18 @@
 
 /* stylelint-disable declaration-property-value-disallowed-list */
 
+.ck-giphy-form {
+	max-width: 500px;
+}
+
+.ck-giphy-form .ck-grid {
+	display: grid;
+}
+
+.ck-giphy-form .ck-grid img {
+	max-width: 100px;
+}
+
 .ck-giphy-dropdown .ck-loader-overlay {
 	display: none;
 }
