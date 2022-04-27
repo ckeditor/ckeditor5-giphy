@@ -12,7 +12,7 @@ export default class GiphyIntegration extends Plugin {
 	}
 
 	getGifs( query ) {
-		const giphyAPI = `https://api.giphy.com/v1/gifs/search?q=${ encodeURI( query ) }&api_key=${ API_KEY }&limit=5`;
+		const giphyAPI = `https://api.giphy.com/v1/gifs/search?q=${ encodeURI( query ) }&api_key=${ API_KEY }&limit=6`;
 
 		return fetch( giphyAPI )
 			.then( response => { return response.json(); } )

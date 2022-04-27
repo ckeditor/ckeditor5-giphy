@@ -7,7 +7,10 @@
  * @module ui/colorgrid/colortile
  */
 
-import { ButtonView } from 'ckeditor5/src/ui';
+import {
+	View,
+	ButtonView
+} from 'ckeditor5/src/ui';
 // import checkIcon from '../../theme/icons/color-tile-check.svg';
 
 /**
@@ -36,7 +39,7 @@ export default class TileView extends ButtonView {
 		 */
 		this.set( 'hasBorder' );
 
-		// this.icon = checkIcon;
+		this.imageView = this._createImageView( 'https://avatars.githubusercontent.com/u/5353898?v=4' );
 
 		this.extendTemplate( {
 			attributes: {
@@ -52,12 +55,24 @@ export default class TileView extends ButtonView {
 		} );
 	}
 
+	_createImageView( imageSrc ) {
+		const imageView = new View();
+		imageView.setTemplate( {
+			tag: 'img',
+			attributes: {
+				src: imageSrc
+			}
+		} );
+
+		return imageView;
+	}
+
 	/**
 	 * @inheritDoc
 	 */
 	render() {
 		super.render();
 
-		this.iconView.fillColor = 'hsl(0, 0%, 100%)';
+		this.children.add( this.imageView );
 	}
 }
