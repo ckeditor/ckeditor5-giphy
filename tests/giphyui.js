@@ -44,9 +44,9 @@ describe( 'GiphyUI', () => {
 		} );
 
 		it( 'has the base properties', () => {
-			const button = editor.ui.componentFactory.create( 'giphy' );
+			const button = editor.ui.componentFactory.create( 'giphy' ).buttonView;
 
-			expect( button ).to.have.property( 'label', 'Insert Giphy' );
+			expect( button ).to.have.property( 'label', 'Giphy' );
 			expect( button ).to.have.property( 'icon' );
 			expect( button ).to.have.property( 'tooltip', true );
 		} );

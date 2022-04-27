@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { Plugin } from 'ckeditor5/src/core';
 import { createDropdown } from 'ckeditor5/src/ui';
 import { Collection } from 'ckeditor5/src/utils';
@@ -6,7 +7,7 @@ import GiphyIntegration from './giphyintegration';
 import giphyIcon from '../theme/icons/giphy.svg';
 import GiphyFormView from './giphyformview';
 
-/* global console */
+/* global console, window */
 
 export default class GiphyUI extends Plugin {
 	static get pluginName() {
@@ -65,7 +66,11 @@ export default class GiphyUI extends Plugin {
 		const giphyIntegration = this.editor.plugins.get( 'GiphyIntegration' );
 		const gifs = await giphyIntegration
 			.getGifs( searchText )
-			.then( response => this._handleResponse( response ) );
+			.then( response => this._handleResponse( response ) )
+			.catch( error => {
+				window.alert( 'Something went wrong with your request.' );
+				console.log( error );
+			} );
 
 		dropdownView.loading = false;
 
