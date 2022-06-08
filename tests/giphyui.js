@@ -104,6 +104,8 @@ describe( 'GiphyUI', function() {
 
 			it( 'shows a generic error when something went wrong with the request', async () => {
 				dropdown.isOpen = true;
+				// Search needs to be changed in order to force a search call.
+				editor.plugins.get( 'GiphyUI' ).formView.searchText = 'foo';
 
 				await wait( 0 );
 

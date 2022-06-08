@@ -197,6 +197,13 @@ export default class GiphyFormView extends View {
 
 		labeledInput.fieldView.on( 'input', debounced );
 
+		// This definitely should be more smartly bound with input#value.
+		this.on( 'change:searchText', ( event, propertyName, newValue ) => {
+			if ( labeledInput.fieldView.element && labeledInput.fieldView.element.value != newValue ) {
+				labeledInput.fieldView.element.value = newValue;
+			}
+		} );
+
 		return labeledInput;
 	}
 

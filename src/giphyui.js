@@ -43,7 +43,7 @@ export default class GiphyUI extends Plugin {
 
 			formView.on( 'change:searchText', ( event, propertyName, newValue ) => {
 				// @todo: here we could change the tiles.
-				console.log( newValue );
+				console.log( 'change:searchText', newValue );
 
 				this._requestResults( newValue, dropdownView, gifsCollection );
 			} );
@@ -60,15 +60,20 @@ export default class GiphyUI extends Plugin {
 				tooltip: true
 			} );
 
-			dropdownView.on( 'change:isOpen', async ( event, propertyName, isOpenValue ) => {
+			dropdownView.on( 'change:isOpen', ( event, propertyName, isOpenValue ) => {
 				if ( isOpenValue ) {
-					this._requestResults( 'ryan gosling', dropdownView, gifsCollection );
+					// Always clean searchText upon opening the dropdown.
+					formView.searchText = '';
 
 					formView.focus();
 				} else {
 					// Move focus back to the editable. We might consider to dropping this at some point.
 					editor.editing.view.focus();
 				}
+			}, {
+				// Default priority or higher caused synchronous `formView.filterInputView.focus();` not
+				// to take any effect.
+				priority: 'low'
 			} );
 
 			return dropdownView;
