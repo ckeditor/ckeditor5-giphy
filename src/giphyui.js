@@ -9,6 +9,8 @@ import GiphyFormView from './giphyformview';
 
 /* global console, window */
 
+const GIPHY_KEYSTROKE = 'CTRL+G';
+
 export default class GiphyUI extends Plugin {
 	static get pluginName() {
 		return 'GiphyUI';
@@ -23,6 +25,23 @@ export default class GiphyUI extends Plugin {
 		const t = editor.t;
 		const gifsCollection = new Collection();
 
+		editor.keystrokes.set( GIPHY_KEYSTROKE, ( keyEvtData, cancel ) => {
+			// Prevent focusing the search bar in FF, Chrome and Edge. See https://github.com/ckeditor/ckeditor5/issues/4811.
+			cancel();
+
+			if ( editor.ui && editor.ui.view.toolbar ) {
+				// This is naaasty :D Needs to be cleaned up later.
+				for ( const toolbarItem of editor.ui.view.toolbar.items ) {
+					const templateClasses = toolbarItem.template.attributes.class;
+
+					if ( templateClasses && templateClasses.includes( 'ck-giphy-dropdown' ) ) {
+						toolbarItem.isOpen = !toolbarItem.isOpen;
+						break;
+					}
+				}
+			}
+		} );
+
 		// Add the "giphy" button to feature components.
 		editor.ui.componentFactory.add( 'giphy', locale => {
 			const dropdownView = createDropdown( locale );
@@ -31,6 +50,7 @@ export default class GiphyUI extends Plugin {
 			const bind = dropdownView.bindTemplate;
 
 			dropdownView.set( 'loading', false );
+			dropdownView.buttonView.set( 'keystroke', GIPHY_KEYSTROKE );
 
 			dropdownView.extendTemplate( {
 				attributes: {
