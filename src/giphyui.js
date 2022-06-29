@@ -70,6 +70,9 @@ export default class GiphyUI extends Plugin {
 
 			formView.grid.on( 'execute', ( eventData, giphy ) => {
 				editor.execute( 'addGiphy', giphy );
+
+				// Hide dropdown when a giphy is selected.
+				dropdownView.isOpen = false;
 			} );
 
 			dropdownView.panelView.children.add( formView );
