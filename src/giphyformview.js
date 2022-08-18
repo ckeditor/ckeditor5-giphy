@@ -23,6 +23,7 @@ import {
 } from 'ckeditor5/src/utils';
 
 import GiphyGridView from './giphygrid/giphygridview';
+import addKeyboardHandlingForGrid from './addkeyboardhandlingforgrid';
 
 import { debounce } from 'lodash-es';
 
@@ -159,6 +160,13 @@ export default class GiphyFormView extends View {
 
 		// Start listening for the keystrokes coming from #element.
 		this.keystrokes.listenTo( this.element );
+
+		addKeyboardHandlingForGrid( {
+			keystrokeHandler: this.keystrokes,
+			focusTracker: this.focusTracker,
+			gridItems: this.children,
+			numberOfColumns: 2
+		} );
 	}
 
 	/**
