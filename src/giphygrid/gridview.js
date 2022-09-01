@@ -20,6 +20,7 @@ import {
 } from 'ckeditor5/src/utils';
 
 import '../../theme/grid.css';
+import addKeyboardHandlingForGrid from '../addkeyboardhandlingforgrid';
 
 /**
  * A grid of {@link module:ui/colorgrid/colortile~TileView color tiles}.
@@ -182,6 +183,13 @@ export default class GridView extends View {
 
 		// Start listening for the keystrokes coming from #element.
 		this.keystrokes.listenTo( this.element );
+
+		addKeyboardHandlingForGrid( {
+			keystrokeHandler: this.keystrokes,
+			focusTracker: this.focusTracker,
+			gridItems: this.children,
+			numberOfColumns: 2
+		} );
 	}
 
 	/**
