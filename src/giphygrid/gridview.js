@@ -187,7 +187,7 @@ export default class GridView extends View {
 		addKeyboardHandlingForGrid( {
 			keystrokeHandler: this.keystrokes,
 			focusTracker: this.focusTracker,
-			gridItems: this.children,
+			gridItems: this.items,
 			numberOfColumns: 2
 		} );
 	}

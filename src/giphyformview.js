@@ -145,8 +145,8 @@ export default class GiphyFormView extends View {
 		super.render();
 
 		const childViews = [
-			this.filterInputView
-			// @todo: grid view
+			this.filterInputView,
+			this.grid
 		];
 
 		childViews.forEach( v => {
