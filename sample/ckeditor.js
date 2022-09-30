@@ -50,6 +50,9 @@ ClassicEditor
 				'|',
 				'linkImage'
 			]
+		},
+		giphy: {
+			api_key: 'VfLRWdWIEZ6pC1wYPfUYmIpNElayWB9P'
 		}
 	} )
 	.then( editor => {
