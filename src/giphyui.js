@@ -22,6 +22,11 @@ export default class GiphyUI extends Plugin {
 
 	init() {
 		const editor = this.editor;
+
+		if ( !editor.config.get( 'giphy' ).api_key ) {
+			return;
+		}
+
 		const t = editor.t;
 		const gifsCollection = new Collection();
 

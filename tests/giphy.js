@@ -27,7 +27,10 @@ describe( 'Giphy', () => {
 				],
 				toolbar: [
 					'giphy'
-				]
+				],
+				giphy: {
+					api_key: 'api_key_placeholder'
+				}
 			} );
 		} );
 

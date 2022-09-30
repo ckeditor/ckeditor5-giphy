@@ -24,7 +24,10 @@ describe( 'GiphyEditing', () => {
 					Heading,
 					Essentials,
 					GiphyEditing
-				]
+				],
+				giphy: {
+					api_key: 'api_key_placeholder'
+				}
 			} );
 		} );
 
