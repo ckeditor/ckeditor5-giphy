@@ -1,7 +1,5 @@
 import { Plugin } from 'ckeditor5/src/core';
 
-const API_KEY = 'VfLRWdWIEZ6pC1wYPfUYmIpNElayWB9P';
-
 /* global fetch */
 export default class GiphyIntegration extends Plugin {
 	/**
@@ -12,7 +10,8 @@ export default class GiphyIntegration extends Plugin {
 	}
 
 	getGifs( query ) {
-		const giphyAPI = `https://api.giphy.com/v1/gifs/search?q=${ encodeURI( query ) }&api_key=${ API_KEY }&limit=6`;
+		const giphyAPI = `https://api.giphy.com/v1/gifs/search?q=${ encodeURI( query ) }
+			&api_key=${ this.editor.config.get( 'giphy' ).api_key }&limit=6`;
 
 		return fetch( giphyAPI )
 			.then( response => { return response.json(); } )

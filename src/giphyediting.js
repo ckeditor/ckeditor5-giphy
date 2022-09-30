@@ -14,6 +14,12 @@ export default class GiphyEditing extends Plugin {
 	 * @inheritDoc
 	 */
 	init() {
-		this.editor.commands.add( 'addGiphy', new AddGiphyCommand( this.editor) );
+		const editor = this.editor;
+
+		if ( !editor.config.get( 'giphy' ).api_key ) {
+			return;
+		}
+
+		editor.commands.add( 'addGiphy', new AddGiphyCommand( this.editor ) );
 	}
 }
